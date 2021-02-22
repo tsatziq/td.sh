@@ -21,7 +21,7 @@ tl					List all tasks
 
 tt					List all tags and their frequency 
 
-tlt					List tasks scheduled for today
+tld					List tasks scheduled for today
 
 tlw					List tasks scheduled for this week
 
