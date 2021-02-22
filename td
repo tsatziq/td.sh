@@ -55,14 +55,14 @@ elif [[ $# == 1 ]]; then
   fi
 
 # Automatical task scheduled for tomorrow
-elif [[ $# == 2 && $2 == "-n" ]]; then
+elif [[ $# == 2 && $1 == "-n" ]]; then
   next_day=`date -dtomorrow +":%g/%m/%d:"`
-  write_entry "$next_day $1"
+  write_entry "$next_day $2"
 
 # Automatical task scheduled for end of this week
-elif [[ $# == 2 && $2 == "-w" ]]; then
+elif [[ $# == 2 && $1 == "-w" ]]; then
   next_sunday=`date -dsunday +":%g/%m/%d:"`
-  write_entry "$next_sunday $1"
+  write_entry "$next_sunday $2"
 
 else
 #Print error message

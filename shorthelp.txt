@@ -4,7 +4,7 @@ tn "task [:@tag:]";Add task scheduled for next day
 tw "task [:@tag:]";Add task scheduled for next sunday
 tl;List all tasks
 tt;List all tags and their frequency 
-tlt;List tasks scheduled for today
+tld;List tasks scheduled for today
 tlw;List tasks scheduled for this week
 tf int [int] ... [int];Mark tasks done with line numbers
 tft :@tag:;Mark all tasks done

@@ -44,9 +44,9 @@ filter_list() {
 # First check arguments and proceed accordingly
 
 # Mark entries as done by a tag
-if [[ $# == 2 && $1 == "-tag" ]]; then
+if [[ $# == 2 && $1 == "-t" ]]; then
   mawk -vtag=$2 -voutfile="$SCRIPT_PATH/.dtmp" ' \
-    tolower($NF) ~ tolower(tag) {print $0}' $FILE_PATH
+    tolower($NF) ~ tolower(tag) {print $0 >> outfile}' $FILE_PATH
   
   if [[ -f "$SCRIPT_PATH/.dtmp" ]]; then
     to_add=`wc -l < $SCRIPT_PATH/.dtmp`
@@ -66,7 +66,7 @@ elif [[ $# == 1 && $1 == "-log" ]]; then
 # Print the log file
 elif [[ $# == 1 && $1 == "-list" ]]; then
   mawk '$0 ~ /^\[DONE: [0-9][0-9]\/[0-9][0-9]\/[0-9][0-9]]/ { \
-    printf "\033[32m%-s\033[0m %-s\n", substr($0,0,16),substr($0,17)} \
+    printf "\033[92m%-s\033[0m %-s\n", substr($0,0,16),substr($0,17)} \
   $0 !~  /^\[DONE: [0-9][0-9]\/[0-9][0-9]\/[0-9][0-9]]/ { \
     print}' $LOG_PATH
 
@@ -76,8 +76,7 @@ elif [[ $# != 0 ]]; then
 
   # Check that arguments are numbers and valid line numbers
   for i in $@; do  
-    if [[ $i =~ ^[0-9]+$ && ($i < $line_no || $i == $line_no) \
-      && $i > 0 ]]; then
+    if [[ $i =~ ^[0-9]+$ && ($i -le $line_no) ]]; then
       mawk -vline=$i -voutfile="$SCRIPT_PATH/.dtmp" ' \
         NR==line {print $0 >> outfile}' $FILE_PATH
     fi
